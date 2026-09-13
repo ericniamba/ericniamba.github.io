@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Niamba — Cloud Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #10151F;
+    --mist: #EEF0F2;
+    --verified: #1F6F54;
+    --verified-light: #E7F0EC;
+    --brass: #C9A227;
+    --steel: #4A5A6A;
+    --white: #FFFFFF;
+    --line: #D8DCE0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--mist);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+
+  .mono {
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ---------- HERO ---------- */
+
+  header.hero {
+    background: var(--ink);
+    color: var(--mist);
+    padding: 88px 0 96px;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+
+  .hero-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    color: var(--brass);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero h1 {
+    font-size: 52px;
+    max-width: 620px;
+    margin-bottom: 22px;
+  }
+
+  .hero p.lede {
+    font-size: 19px;
+    color: #C4CAD1;
+    max-width: 540px;
+    margin-bottom: 34px;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 13px 24px;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background: var(--verified);
+    color: var(--white);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--mist);
+    border-color: #3A4250;
+  }
+
+  /* ---------- LEDGER CARD ---------- */
+
+  .ledger-card {
+    background: #171D29;
+    border: 1px solid #2A3140;
+    border-radius: 4px;
+    padding: 26px 26px 22px;
+  }
+
+  .ledger-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #2A3140;
+    padding-bottom: 14px;
+    margin-bottom: 16px;
+  }
+
+  .ledger-head .mono {
+    font-size: 12px;
+    color: #7A8592;
+  }
+
+  .ledger-status {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--verified);
+    background: rgba(31,111,84,0.16);
+    padding: 3px 9px;
+    border-radius: 3px;
+  }
+
+  .ledger-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 11px 0;
+    border-bottom: 1px solid #232A38;
+    font-size: 14.5px;
+  }
+
+  .ledger-row:last-child { border-bottom: none; }
+
+  .ledger-row .k { color: #97A0AC; }
+  .ledger-row .v { font-family: 'IBM Plex Mono', monospace; color: var(--mist); }
+
+  /* ---------- SECTIONS ---------- */
+
+  section { padding: 88px 0; }
+
+  section.alt { background: var(--white); }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--verified);
+    margin-bottom: 14px;
+  }
+
+  h2.section-title {
+    font-size: 34px;
+    max-width: 620px;
+    margin-bottom: 20px;
+  }
+
+  p.section-body {
+    font-size: 17px;
+    color: var(--steel);
+    max-width: 640px;
+    margin-bottom: 16px;
+  }
+
+  /* ---------- FEATURE LIST ---------- */
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 40px;
+  }
+
+  @media (max-width: 720px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+
+  .feature {
+    background: var(--white);
+    padding: 26px 28px;
+  }
+
+  .feature .num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--verified);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .feature h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .feature p {
+    font-size: 15px;
+    color: var(--steel);
+  }
+
+  .stack-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .stack-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    background: var(--verified-light);
+    color: var(--verified);
+    padding: 6px 12px;
+    border-radius: 3px;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .btn-dark {
+    background: var(--ink);
+    color: var(--white);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  /* ---------- CREDENTIALS BAR ---------- */
+
+  .creds-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin-top: 40px;
+  }
+
+  @media (max-width: 720px) {
+    .creds-bar { grid-template-columns: 1fr; }
+  }
+
+  .cred {
+    background: var(--white);
+    padding: 30px 26px;
+    text-align: left;
+  }
+
+  .cred .stat {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 30px;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .cred .label {
+    font-size: 14px;
+    color: var(--steel);
+  }
+
+  /* ---------- TIMELINE ---------- */
+
+  .timeline {
+    margin-top: 40px;
+    border-left: 2px solid var(--verified);
+    padding-left: 30px;
+  }
+
+  .tl-item {
+    position: relative;
+    padding-bottom: 34px;
+  }
+
+  .tl-item:last-child { padding-bottom: 0; }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -37px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--verified);
+    border: 3px solid var(--white);
+  }
+
+  .tl-item .role {
+    font-size: 17px;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .tl-item .meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    color: var(--steel);
+    margin: 4px 0 8px;
+  }
+
+  .tl-item p {
+    font-size: 15px;
+    color: var(--steel);
+    max-width: 560px;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    background: var(--ink);
+    color: var(--mist);
+    padding: 64px 0 48px;
+  }
+
+  footer h2 {
+    font-size: 30px;
+    margin-bottom: 14px;
+  }
+
+  footer p {
+    color: #B8BFC7;
+    font-size: 16px;
+    max-width: 480px;
+    margin-bottom: 30px;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 26px;
+    flex-wrap: wrap;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid #262D3A;
+    padding-top: 24px;
+    font-size: 13px;
+    color: #6B7480;
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-eyebrow mono">Cloud Engineer · GCP Associate Certified</div>
+      <h1>I build the infrastructure that has to be trusted, not just tested.</h1>
+      <p class="lede">Ten-plus years across banking, fraud operations, and network infrastructure — now applied to cloud engineering and AI systems built for regulated industries.</p>
+      <div class="hero-actions">
+        <a href="#project" class="btn btn-primary">See the flagship project</a>
+        <a href="https://github.com/ericniamba" class="btn btn-secondary">GitHub</a>
+      </div>
+    </div>
+    <div class="ledger-card">
+      <div class="ledger-head">
+        <span class="mono">RECORD // eric_niamba</span>
+        <span class="ledger-status">VERIFIED</span>
+      </div>
+      <div class="ledger-row"><span class="k">Certification</span><span class="v">GCP ACE</span></div>
+      <div class="ledger-row"><span class="k">Hands-on labs</span><span class="v">216</span></div>
+      <div class="ledger-row"><span class="k">Skills Boost XP</span><span class="v">204,038</span></div>
+      <div class="ledger-row"><span class="k">Flagship project</span><span class="v">FinGuard AI</span></div>
+      <div class="ledger-row"><span class="k">Status</span><span class="v">Live in production</span></div>
+      <div class="ledger-row"><span class="k">Location</span><span class="v">Austin, TX</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="alt" id="project">
+  <div class="wrap">
+    <div class="section-label mono">Flagship project</div>
+    <h2 class="section-title">FinGuard AI — compliance intelligence for banks</h2>
+    <p class="section-body">Most AI document tools stop at "upload a file, ask a question." That's not enough for a regulated industry. FinGuard AI adds the controls a real bank compliance team would actually need — a tamper-evident audit trail, automatic data protection, and safeguards against the AI guessing when it shouldn't.</p>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <span class="num mono">01</span>
+        <h3>Query provenance ledger</h3>
+        <p>Every question and answer is hash-chained — altering a past record breaks the chain and is instantly detectable.</p>
+      </div>
+      <div class="feature">
+        <span class="num mono">02</span>
+        <h3>Confidence-gated escalation</h3>
+        <p>Low-confidence answers are flagged for human review instead of being presented as fact.</p>
+      </div>
+      <div class="feature">
+        <span class="num mono">03</span>
+        <h3>Regulatory drift detection</h3>
+        <p>Automatically compares document versions and scores how risky each change is.</p>
+      </div>
+      <div class="feature">
+        <span class="num mono">04</span>
+        <h3>Multi-tenant isolation</h3>
+        <p>Tested against a real adversarial injection attempt — isolation held.</p>
+      </div>
+      <div class="feature">
+        <span class="num mono">05</span>
+        <h3>PII redaction firewall</h3>
+        <p>Sensitive data is stripped before it ever reaches the AI model, not after.</p>
+      </div>
+      <div class="feature">
+        <span class="num mono">06</span>
+        <h3>Regulatory time travel</h3>
+        <p>Answers questions using the rule that was actually in effect on a specific past date.</p>
+      </div>
+      <div class="feature" style="grid-column: 1 / -1;">
+        <span class="num mono">07</span>
+        <h3>Compliance score dashboard</h3>
+        <p>Tracks cumulative regulatory risk over time, turning isolated events into a visible trend.</p>
+      </div>
+    </div>
+
+    <div class="stack-row">
+      <span class="stack-tag">Cloud Run</span>
+      <span class="stack-tag">Cloud SQL + pgvector</span>
+      <span class="stack-tag">Vertex AI Gemini</span>
+      <span class="stack-tag">Terraform</span>
+      <span class="stack-tag">IAM</span>
+      <span class="stack-tag">Secret Manager</span>
+      <span class="stack-tag">VPC</span>
+    </div>
+
+    <div class="project-links">
+      <a href="https://finguard-ai-283915220530.us-central1.run.app/docs" class="btn btn-dark">Live demo</a>
+      <a href="https://github.com/ericniamba/ai-knowledge-base-gcp" class="btn btn-outline">Source code</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-label mono">Credentials</div>
+    <h2 class="section-title">Certified, and proven hands-on</h2>
+    <p class="section-body">A certification shows you know the fundamentals. A live, working system shows you can build with them.</p>
+
+    <div class="creds-bar">
+      <div class="cred">
+        <span class="stat">ACE</span>
+        <span class="label">Google Cloud Associate Cloud Engineer</span>
+      </div>
+      <div class="cred">
+        <span class="stat">216</span>
+        <span class="label">Google Cloud hands-on labs completed</span>
+      </div>
+      <div class="cred">
+        <span class="stat">CCT</span>
+        <span class="label">EC-Council Certified Cybersecurity Technician</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <div class="section-label mono">Background</div>
+    <h2 class="section-title">Where the instinct for reliable systems came from</h2>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="role">Cloud & AI Infrastructure Consultant — Derma Nova Clinic</div>
+        <div class="meta mono">2026 – Present · Remote</div>
+        <p>Volunteer cloud architecture and AI consultation, paving the path toward the GCP ACE certification.</p>
+      </div>
+      <div class="tl-item">
+        <div class="role">Digital Banking Analyst & Personal Banker — Wells Fargo</div>
+        <div class="meta mono">2022 – Present · Austin, TX</div>
+        <p>Digital identity verification, fraud investigation, and root-cause analysis inside regulated financial infrastructure.</p>
+      </div>
+      <div class="tl-item">
+        <div class="role">Fraud & Digital Operations Analyst — Apple</div>
+        <div class="meta mono">2018 – 2021 · Austin, TX</div>
+        <p>Fraud pattern analysis and structured UAT cycles across Apple's internal digital transaction systems.</p>
+      </div>
+      <div class="tl-item">
+        <div class="role">Founder & Technical Lead — Web365 Experts</div>
+        <div class="meta mono">2014 – 2018, 2020 – 2022 · Austin, TX</div>
+        <p>Built and led a digital development company delivering websites, mobile apps, and backend systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h2>Let's talk.</h2>
+    <p>Open to Cloud Engineer, DevOps, and Platform Engineer roles — particularly in fintech, banking, and AI-driven GCP platforms.</p>
+    <div class="footer-links">
+      <a href="mailto:ericniamba@gmail.com">ericniamba@gmail.com</a>
+      <a href="https://linkedin.com/in/lericniamba">LinkedIn</a>
+      <a href="https://github.com/ericniamba">GitHub</a>
+    </div>
+    <div class="footer-bottom">Eric Niamba — Austin, Texas</div>
+  </div>
+</footer>
+
+</body>
+</html>
