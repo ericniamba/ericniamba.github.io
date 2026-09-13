@@ -416,7 +416,10 @@
 
     <div class="demo-box">
       <textarea id="demo-input" placeholder="Type a question for FinGuard AI..." rows="2"></textarea>
-      <button id="demo-submit" class="btn btn-dark" style="margin-top: 12px;">Ask FinGuard AI</button>
+      <div style="display: flex; gap: 10px; margin-top: 12px;">
+        <button id="demo-submit" class="btn btn-dark">Ask FinGuard AI</button>
+        <button id="demo-clear" class="btn btn-secondary" style="border-color: #3A4250;">Clear</button>
+      </div>
 
       <div id="demo-response" class="demo-response" style="display: none;">
         <div class="ledger-head" style="border-bottom: 1px solid #2A3140; margin-bottom: 14px; padding-bottom: 12px;">
@@ -501,6 +504,11 @@
     chip.addEventListener('click', function() {
       document.getElementById('demo-input').value = chip.getAttribute('data-q');
     });
+  });
+
+  document.getElementById('demo-clear').addEventListener('click', function() {
+    document.getElementById('demo-input').value = '';
+    document.getElementById('demo-response').style.display = 'none';
   });
 
   document.getElementById('demo-submit').addEventListener('click', async function() {
