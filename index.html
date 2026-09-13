@@ -403,6 +403,142 @@
   </div>
 </header>
 
+<section class="alt" id="try-it">
+  <div class="wrap">
+    <div class="section-label mono">Try it yourself</div>
+    <h2 class="section-title">Ask FinGuard AI a real question, right now</h2>
+    <p class="section-body">This calls the actual live system — not a mockup. Try a normal question, or paste in something that looks like an SSN or account number to see the redaction firewall catch it in real time.</p>
+
+    <div class="demo-examples">
+      <button class="example-chip" data-q="What is our compliance policy on reporting thresholds?">Ask about reporting thresholds</button>
+      <button class="example-chip" data-q="My SSN is 123-45-6789, what is our compliance policy?">Try it with a fake SSN</button>
+    </div>
+
+    <div class="demo-box">
+      <textarea id="demo-input" placeholder="Type a question for FinGuard AI..." rows="2"></textarea>
+      <button id="demo-submit" class="btn btn-dark" style="margin-top: 12px;">Ask FinGuard AI</button>
+
+      <div id="demo-response" class="demo-response" style="display: none;">
+        <div class="ledger-head" style="border-bottom: 1px solid #2A3140; margin-bottom: 14px; padding-bottom: 12px;">
+          <span class="mono" style="color: #7A8592;">LIVE RESPONSE</span>
+          <span id="demo-status" class="ledger-status">RECEIVED</span>
+        </div>
+        <div id="demo-answer" class="mono" style="font-size: 14px; line-height: 1.7; white-space: pre-wrap;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .demo-examples {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 28px 0 20px;
+  }
+
+  .example-chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    background: var(--verified-light);
+    color: var(--verified);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .example-chip:hover { background: #D9E9E1; }
+
+  .demo-box {
+    background: var(--ink);
+    border-radius: 4px;
+    padding: 24px;
+    max-width: 640px;
+  }
+
+  #demo-input {
+    width: 100%;
+    background: #171D29;
+    border: 1px solid #2A3140;
+    border-radius: 3px;
+    color: var(--mist);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    padding: 12px 14px;
+    resize: vertical;
+  }
+
+  #demo-input:focus {
+    outline: 1px solid var(--verified);
+  }
+
+  .demo-response {
+    margin-top: 20px;
+    background: #171D29;
+    border: 1px solid #2A3140;
+    border-radius: 4px;
+    padding: 20px;
+  }
+
+  #demo-answer { color: var(--mist); }
+
+  .ledger-status.pending {
+    color: var(--brass);
+    background: rgba(201,162,39,0.16);
+  }
+
+  .ledger-status.error {
+    color: #C0392B;
+    background: rgba(192,57,43,0.16);
+  }
+</style>
+
+<script>
+  const FINGUARD_API = "https://finguard-ai-283915220530.us-central1.run.app/api/v1/chat";
+
+  document.querySelectorAll('.example-chip').forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      document.getElementById('demo-input').value = chip.getAttribute('data-q');
+    });
+  });
+
+  document.getElementById('demo-submit').addEventListener('click', async function() {
+    const input = document.getElementById('demo-input');
+    const question = input.value.trim();
+    if (!question) return;
+
+    const responseBox = document.getElementById('demo-response');
+    const statusEl = document.getElementById('demo-status');
+    const answerEl = document.getElementById('demo-answer');
+    const submitBtn = document.getElementById('demo-submit');
+
+    responseBox.style.display = 'block';
+    statusEl.textContent = 'THINKING...';
+    statusEl.className = 'ledger-status pending';
+    answerEl.textContent = 'Waking up the live service (this can take a few seconds on the first request)...';
+    submitBtn.disabled = true;
+
+    try {
+      const res = await fetch(FINGUARD_API, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question: question, document_id: '' })
+      });
+      const data = await res.json();
+      statusEl.textContent = 'RECEIVED';
+      statusEl.className = 'ledger-status';
+      answerEl.textContent = data.answer || 'No answer returned.';
+    } catch (err) {
+      statusEl.textContent = 'ERROR';
+      statusEl.className = 'ledger-status error';
+      answerEl.textContent = 'Could not reach the live service right now. It may be cold-starting — try again in a moment.';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+</script>
+
 <section class="alt" id="project">
   <div class="wrap">
     <div class="section-label mono">Flagship project</div>
